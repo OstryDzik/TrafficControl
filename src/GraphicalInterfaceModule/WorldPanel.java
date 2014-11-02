@@ -42,7 +42,7 @@ public class WorldPanel extends JPanel
 
         Graphics2D g2d = (Graphics2D) g;
 
-        g2d.setColor(new Color(173, 208, 138));
+        g2d.setColor(Color.gray);
         for (int y = 0; y < 4; ++y)
         {
             for (int x = 0; x < 4; ++x)
@@ -51,7 +51,7 @@ public class WorldPanel extends JPanel
             }
         }
 
-        g2d.setColor(Color.gray);
+        g2d.setColor(Color.black);
         float y = 100;
         for (int i = 0; i < 3; ++i)
         {
