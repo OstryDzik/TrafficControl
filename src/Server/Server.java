@@ -13,9 +13,9 @@ import java.net.Socket;
 
 public class Server
 {
-    public static final int DEFAULT_CARS_PORT = 5001;
-    public static final int DEFAULT_LIGHTS_PORT = 5002;
-    public static final int DEFAULT_GUI_PORT = 5003;
+    public static final int DEFAULT_CARS_PORT = 8000;
+    public static final int DEFAULT_LIGHTS_PORT = 8002;
+    public static final int DEFAULT_GUI_PORT = 8003;
 
     public class ServerListener implements Runnable {
 
@@ -81,8 +81,8 @@ public class Server
 
 
         guiServerListener = new ServerListener(DEFAULT_GUI_PORT);
-        Thread GuiThread = new Thread(lightsServerListener);
-        lightsThread.start();
+        Thread guiThread = new Thread(lightsServerListener);
+        guiThread.start();
     }
 
     public LightsInfo getLightsInfo() {

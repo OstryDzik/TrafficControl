@@ -83,7 +83,7 @@ public class InterfaceFrame extends JFrame
         {
             public void actionPerformed(ActionEvent arg0)
             {
-                worldPanel.update(TempMockupManager.getInstance().getRandomMockup());
+                //worldPanel.update(TempMockupManager.getInstance().getRandomMockup());
             }
         });
 

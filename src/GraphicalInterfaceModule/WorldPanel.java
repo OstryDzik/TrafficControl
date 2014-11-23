@@ -12,6 +12,11 @@ import java.util.Observable;
 /**
  * Created by Filip on 2014-11-01.
  */
+
+class WorldInfo {
+    public WorldInfo() {};
+}
+
 public class WorldPanel extends JPanel
 {
     private WorldInfo worldInfo;
@@ -92,7 +97,7 @@ public class WorldPanel extends JPanel
         }
         else
         {
-            LightsInfo lightsMockup = worldInfo.getLightsMockup();
+            LightsInfo lightsMockup = null;//worldInfo.getLightsMockup();
             for (int idY = 0; idY < 3; ++idY)
             {
                 for (int idX = 0; idX < 3; ++idX)
@@ -177,7 +182,7 @@ public class WorldPanel extends JPanel
 
                 }
             }
-            CarsInfo carsInfo = worldInfo.getCarsInfo();
+            CarsInfo carsInfo = null;//worldInfo.getCarsInfo();
             if (carsInfo != null)
             {
                 for (Car car : carsInfo.getCars())

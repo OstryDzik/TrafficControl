@@ -7,7 +7,7 @@ public class Module {
     public enum ModuleType {GUI, SIM, LIGHTS};
 
     public Module(ModuleType type) {
-        self.type = type;
+        this.type = type;
     }
 
     private ModuleType type;
