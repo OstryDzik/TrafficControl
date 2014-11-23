@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Created by Filip on 2014-11-01.
  */
-public class CarsMockup
+public class CarsInfo
 {
     ArrayList<Car> cars = null;
 
@@ -19,7 +19,7 @@ public class CarsMockup
         this.cars = cars;
     }
 
-    public CarsMockup(ArrayList<Car> cars)
+    public CarsInfo(ArrayList<Car> cars)
     {
         this.cars = cars;
     }

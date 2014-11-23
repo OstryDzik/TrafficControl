@@ -1,9 +1,9 @@
 package GraphicalInterfaceModule;
 
 import Common.Car;
-import Common.CarsMockup;
-import Common.LightsMockup;
-import Common.WorldMockup;
+import Common.CarsInfo;
+import Common.LightsInfo;
+import Common.WorldInfo;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +15,7 @@ import java.util.Observable;
  */
 public class WorldPanel extends JPanel
 {
-    private WorldMockup worldMockup;
+    private WorldInfo worldInfo;
     private float X(float x, int idX)
     {
         return (x + idX * 120) * scale + offsetX;
@@ -67,7 +67,7 @@ public class WorldPanel extends JPanel
         Color orangeSolid = new Color(1.0f, 0.5f, 0.01f, 0.8f);
         Color orangeTransparent = new Color(0.0f, 0.5f, 0.0f, 0.0f);
 
-        if (worldMockup == null)
+        if (worldInfo == null)
         {
             for (int idY = 0; idY < 3; ++idY)
             {
@@ -93,13 +93,13 @@ public class WorldPanel extends JPanel
         }
         else
         {
-            LightsMockup lightsMockup = worldMockup.getLightsMockup();
+            LightsInfo lightsMockup = worldInfo.getLightsMockup();
             for (int idY = 0; idY < 3; ++idY)
             {
                 for (int idX = 0; idX < 3; ++idX)
                 {
-                    LightsMockup.LightsState light = lightsMockup.getStates()[3 * idY + idX];
-                    if (light == LightsMockup.LightsState.HORIZONTALLY_GREEN)
+                    LightsInfo.LightsState light = lightsMockup.getStates()[3 * idY + idX];
+                    if (light == LightsInfo.LightsState.HORIZONTALLY_GREEN)
                     {
                         // zielone
                         g2d.setPaint(new GradientPaint(X(60, idX), Y(100, idY), greenTransparent, X(100, idX), Y(100, idY), greenSolid));
@@ -118,7 +118,7 @@ public class WorldPanel extends JPanel
                         g2d.setColor(greenSolid);
                         g2d.fill(new Rectangle.Float(X(100, idX), Y(100, idY), 20 * scale, 20 * scale));
                     }
-                    else if (light == LightsMockup.LightsState.HORIZONTALLY_ORANGE)
+                    else if (light == LightsInfo.LightsState.HORIZONTALLY_ORANGE)
                     {
                         // pomarańczowe
                         g2d.setPaint(new GradientPaint(X(60, idX), Y(100, idY), orangeTransparent, X(100, idX), Y(100, idY), orangeSolid));
@@ -137,7 +137,7 @@ public class WorldPanel extends JPanel
                         g2d.setColor(orangeSolid);
                         g2d.fill(new Rectangle.Float(X(100, idX), Y(100, idY), 20 * scale, 20 * scale));
                     }
-                    else if (light == LightsMockup.LightsState.VERTICALLY_ORAGNE)
+                    else if (light == LightsInfo.LightsState.VERTICALLY_ORAGNE)
                     {
                         // czerwone
                         g2d.setPaint(new GradientPaint(X(90, idX), Y(100, idY), redTransparent, X(100, idX), Y(100, idY), redSolid));
@@ -178,10 +178,10 @@ public class WorldPanel extends JPanel
 
                 }
             }
-            CarsMockup carsMockup = worldMockup.getCarsMockup();
-            if (carsMockup != null)
+            CarsInfo carsInfo = worldInfo.getCarsInfo();
+            if (carsInfo != null)
             {
-                for (Car car : carsMockup.getCars())
+                for (Car car : carsInfo.getCars())
                 {
                     float cx,cy,cw,ch;
                     cx = (car.getX()*10)*scale + offsetX;
@@ -201,9 +201,9 @@ public class WorldPanel extends JPanel
         repaint();
     }
 
-    public void update(WorldMockup mockup)
+    public void update(WorldInfo mockup)
     {
-        worldMockup = mockup;
+        worldInfo = mockup;
         System.out.println("Update");
         repaint();
     }

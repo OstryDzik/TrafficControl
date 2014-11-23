@@ -1,6 +1,5 @@
 package Common;
 
-import java.awt.peer.LightweightPeer;
 import java.util.Random;
 
 /**
@@ -8,18 +7,18 @@ import java.util.Random;
  */
 public class TempMockupManager
 {
-    private WorldMockup[] worldMockupList;
+    private WorldInfo[] worldInfoList;
     private int mockupIndex;
     private static TempMockupManager instance;
 
     private TempMockupManager()
     {
         mockupIndex = 0;
-        worldMockupList = new WorldMockup[3];
+        worldInfoList = new WorldInfo[3];
         Random rand = new Random();
         for (int i = 0; i < 3; i++)
         {
-            worldMockupList[i] = getRandomMockup();
+            worldInfoList[i] = getRandomMockup();
         }
     }
 
@@ -34,22 +33,22 @@ public class TempMockupManager
             return instance;
     }
 
-    public WorldMockup getNextMockup()
+    public WorldInfo getNextMockup()
     {
 
         mockupIndex = (mockupIndex + 1)%3;
-        return worldMockupList[mockupIndex] != null ? worldMockupList[mockupIndex] : getRandomMockup();
+        return worldInfoList[mockupIndex] != null ? worldInfoList[mockupIndex] : getRandomMockup();
     }
 
-    public WorldMockup getRandomMockup()
+    public WorldInfo getRandomMockup()
     {
         Random rand = new Random();
-        LightsMockup tmpLights = new LightsMockup();
+        LightsInfo tmpLights = new LightsInfo();
         for (int j = 0; j < 9; j++)
         {
-            tmpLights.setState(j, LightsMockup.LightsState.values()[rand.nextInt(4)]);
+            tmpLights.setState(j, LightsInfo.LightsState.values()[rand.nextInt(4)]);
         }
-        WorldMockup tmpMockup = new WorldMockup();
+        WorldInfo tmpMockup = new WorldInfo();
         tmpMockup.setLightsMockup(tmpLights);
         return tmpMockup;
     }
