@@ -2,6 +2,7 @@ package Server.Handlers;
 
 import Model.LightsInfo;
 import Server.Responses.OkResponse;
+import Server.Server;
 
 import java.net.Socket;
 
@@ -19,7 +20,7 @@ public class SetLightsRequestHandler extends AbstractRequestHandler
     @Override
     public void handle()
     {
-        Server server = Server.GetInstance();
+        Server server = Server.getInstance();
         server.lockLightsInfo();
         server.setLightsInfo(lightsInfo);
         OkResponse okResponse = new OkResponse(clientSocket);

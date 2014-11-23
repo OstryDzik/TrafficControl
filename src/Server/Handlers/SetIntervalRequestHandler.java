@@ -1,7 +1,9 @@
 package Server.Handlers;
 
 import Model.Interval;
+import Model.Simulation;
 import Server.Responses.OkResponse;
+import Server.Server;
 
 import java.net.Socket;
 
@@ -19,12 +21,14 @@ public class SetIntervalRequestHandler extends AbstractRequestHandler
     @Override
     public void handle()
     {
-        Server server = Server.GetInstance();
-        server.lockInterval();
-        server.setInterval(interval);
+        Server server = Server.getInstance();
+        server.lockSimulation();
+        Simulation simulation = server.getSimulation();
+        simulation.setInterval(interval);
+        server.setSimulation(simulation);
         OkResponse okResponse = new OkResponse(clientSocket);
         okResponse.send();
-        server.unlockInterval();
+        server.unlockSimulation();
     }
 
     private Interval interval;
