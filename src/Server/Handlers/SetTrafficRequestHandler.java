@@ -1,6 +1,7 @@
 package Server.Handlers;
 
 import Model.CarsInfo;
+import Server.Server;
 import Server.Responses.OkResponse;
 
 import java.net.Socket;
@@ -21,7 +22,7 @@ public class SetTrafficRequestHandler extends AbstractRequestHandler
     @Override
     public void handle()
     {
-        Server server = Server.GetInstance();
+        Server server = Server.getInstance();
         server.lockCarsInfo();
         server.setCarsInfo(carsInfo);
         OkResponse okResponse = new OkResponse(clientSocket);
