@@ -50,10 +50,44 @@ public class Simulation
         return timePassed;
     }
 
+    public boolean isSimulationOn()
+    {
+        return isSimulationOn;
+    }
+
+    public void setSimulationOn(boolean isSimulationOn)
+    {
+        this.isSimulationOn = isSimulationOn;
+    }
+
+    public boolean isLightsModuleOn()
+    {
+        return isLightsModuleOn;
+    }
+
+    public void setLightsModuleOn(boolean isLightsModuleOn)
+    {
+        this.isLightsModuleOn = isLightsModuleOn;
+    }
+
+    public boolean isGuiOn()
+    {
+        return isGuiOn;
+    }
+
+    public void setGuiOn(boolean isGuiOn)
+    {
+        this.isGuiOn = isGuiOn;
+    }
+
     public enum SimulationState{MANUAL, AUTO};
 
     private SimulationState simulationState;
     private int timePassed;
     private Interval interval;
+
+    private boolean isSimulationOn;
+    private boolean isLightsModuleOn;
+    private boolean isGuiOn;
 
 }
