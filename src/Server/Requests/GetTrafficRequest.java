@@ -1,22 +1,17 @@
 package Server.Requests;
 
-import Model.CarsInfo;
-
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.net.Socket;
 
 /**
- * Created by ThinkPad on 2014-11-23.
+ * Created by Filip on 2014-11-23.
  */
-public class GetTrafficRequest extends AbstractRequest{
-
-    public GetTrafficRequest(Socket clientSocket, CarsInfo carsInfo)
+public class GetTrafficRequest extends AbstractRequest
+{
+    public GetTrafficRequest(Socket clientSocket)
     {
         super(clientSocket);
-        this.carsInfo=carsInfo;
     }
 
     @Override
@@ -25,7 +20,7 @@ public class GetTrafficRequest extends AbstractRequest{
         try
         {
             ObjectOutputStream writer = new ObjectOutputStream(clientSocket.getOutputStream());
-            writer.writeObject((Object)carsInfo);
+            writer.writeObject("GETTRAFFIC");
             writer.flush();
         } catch (IOException e)
         {
@@ -33,6 +28,4 @@ public class GetTrafficRequest extends AbstractRequest{
         }
 
     }
-
-    private CarsInfo carsInfo;
 }
