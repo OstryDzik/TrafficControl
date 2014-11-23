@@ -1,7 +1,5 @@
 package GraphicalInterfaceModule;
 
-import Common.TempMockupManager;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;

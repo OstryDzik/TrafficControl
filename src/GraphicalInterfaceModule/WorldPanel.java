@@ -1,9 +1,8 @@
 package GraphicalInterfaceModule;
 
-import Common.Car;
-import Common.CarsInfo;
-import Common.LightsInfo;
-import Common.WorldInfo;
+import Model.Car;
+import Model.CarsInfo;
+import Model.LightsInfo;
 
 import javax.swing.*;
 import java.awt.*;
@@ -137,7 +136,7 @@ public class WorldPanel extends JPanel
                         g2d.setColor(orangeSolid);
                         g2d.fill(new Rectangle.Float(X(100, idX), Y(100, idY), 20 * scale, 20 * scale));
                     }
-                    else if (light == LightsInfo.LightsState.VERTICALLY_ORAGNE)
+                    else if (light == LightsInfo.LightsState.VERTICALLY_ORANGE)
                     {
                         // czerwone
                         g2d.setPaint(new GradientPaint(X(90, idX), Y(100, idY), redTransparent, X(100, idX), Y(100, idY), redSolid));
