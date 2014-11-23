@@ -1,6 +1,7 @@
-package Server.Requests;
+package Server.Responses;
 
-import Model.Module;
+import Model.Car;
+import Model.CarsInfo;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -9,22 +10,21 @@ import java.net.Socket;
 /**
  * Created by ThinkPad on 2014-11-23.
  */
-public class KillModuleRequest extends AbstractRequest {
-
-    public KillModuleRequest(Socket clientSocket, Module module) {
+public class TrafficResponse extends AbstractResponse {
+    public TrafficResponse(Socket clientSocket, CarsInfo carsInfo) {
         super(clientSocket);
-        this.module = module;
+        this.carsInfo = carsInfo;
     }
 
     public void send() {
         try {
             ObjectOutputStream writer = new ObjectOutputStream(clientSocket.getOutputStream());
-            writer.writeObject(module);
+            writer.writeObject(carsInfo);
             writer.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private Module module;
+    private CarsInfo carsInfo;
 }

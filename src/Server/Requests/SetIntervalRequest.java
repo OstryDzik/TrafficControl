@@ -12,7 +12,7 @@ import java.net.Socket;
 public class SetIntervalRequest extends AbstractRequest {
     public SetIntervalRequest(Socket clientSocket, Interval interval) {
         super(clientSocket);
-        self.interval = interval;
+        this.interval = interval;
     }
 
     public void send() {

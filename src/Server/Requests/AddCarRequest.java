@@ -12,7 +12,7 @@ import java.net.Socket;
 public class AddCarRequest extends AbstractRequest {
     public AddCarRequest(Socket clientSocket, Car car) {
         super(clientSocket);
-        self.car = car;
+        this.car = car;
     }
 
     public void send() {
