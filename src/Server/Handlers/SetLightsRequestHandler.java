@@ -1,6 +1,7 @@
 package Server.Handlers;
 
 import Model.LightsInfo;
+import Server.Responses.OkResponse;
 
 import java.net.Socket;
 
@@ -12,11 +13,19 @@ public class SetLightsRequestHandler extends AbstractRequestHandler
     public SetLightsRequestHandler(LightsInfo lightsInfo, Socket clientSocket)
     {
         super(clientSocket);
+        this.lightsInfo = lightsInfo;
     }
 
     @Override
     public void handle()
     {
-
+        Server server = Server.GetInstance();
+        server.lockLightsInfo();
+        server.setLightsInfo(lightsInfo);
+        OkResponse okResponse = new OkResponse(clientSocket);
+        okResponse.send();
+        server.unlockLightsInfo();
     }
+
+    private LightsInfo lightsInfo;
 }
