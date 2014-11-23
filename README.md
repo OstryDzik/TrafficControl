@@ -33,16 +33,19 @@ Server:
 		+ set_interval: ustaw okres pojawiania sie samochodow
 
 Swiatla:
+
 	- jesli get_traffic nie odpowie po 300ms to przechodza w tryb domyslnego algorytmu
 
 	- w trybie manual pyta sie za pomoca shall_i czy moze leciec dalej
 
 Symulacja:
+
 	- jesli: get_ligths nie odpowie po 300ms to symulacja sama sobie ustala zmiane swiatel
 
 	- w trybie manual pyta sie za pomoca shall_i czy moze leciec dalej
 
 GUI:
+
 	- pyta sie o get_lights, get_traffic
 
 	- wysyla:
@@ -52,4 +55,3 @@ GUI:
 		+ set_mode
 
 		+ kill_module
-		
