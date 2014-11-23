@@ -16,17 +16,11 @@ Server:
 
 		+ get_mode: zwraca auto lub manual; odpowiednie moduly reaguja
 
-	- tick:
-
-		+ shall_i: modul swiatel i symulacji pyta sie o mozliwosc kontynuowania symulacji
+		+ set_mode: ustawienie trybu na manual/auto, informacja o czasie
 
 	- gui:
 
 		+ kill_module: info do serwera, ze symulacja/swiatla padly
-
-		+ next_tick: info do serwera, ze symulacje moga skoczyc o krok
-
-		+ set_mode: ustawienie trybu na manual/auto
 
 		+ add_car: dodanie samochodu
 
