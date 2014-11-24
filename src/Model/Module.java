@@ -10,5 +10,9 @@ public class Module {
         this.type = type;
     }
 
+    public ModuleType getType() {
+        return type;
+    }
+
     private ModuleType type;
 }

@@ -1,6 +1,10 @@
 package Server.Handlers;
 
 import Model.Car;
+import Model.CarsInfo;
+import Server.Responses.OkResponse;
+import Server.Responses.TrafficResponse;
+import Server.Server;
 
 import java.net.Socket;
 
@@ -12,12 +16,22 @@ public class AddCarRequestHandler extends AbstractRequestHandler
     public AddCarRequestHandler(Car car, Socket socket)
     {
         super(socket);
+        this.car = car;
     }
 
 
     @Override
     public void handle()
     {
-
+        Server server = Server.getInstance();
+        server.lockCarsInfo();
+        CarsInfo cInfo = server.getCarsInfo();
+        cInfo.addCar(car);
+        server.setCarsInfo(cInfo);
+        OkResponse okResponse = new OkResponse(clientSocket);
+        okResponse.send();
+        server.unlockCarsInfo();
     }
+
+    private Car car;
 }
