@@ -25,5 +25,10 @@ public class LightsResponse extends AbstractResponse {
         }
     }
 
-    private LightsInfo lightsInfo;
+    public LightsInfo getLightsInfo()
+	{
+		return lightsInfo;
+	}
+
+	private LightsInfo lightsInfo;
 }

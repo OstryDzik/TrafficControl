@@ -1,7 +1,5 @@
 package Server.Responses;
 
-import Server.Requests.AbstractRequest;
-
 import java.net.Socket;
 
 /**

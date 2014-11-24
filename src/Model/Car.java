@@ -1,6 +1,6 @@
 package Model;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.Random;
 
 /**
@@ -14,9 +14,9 @@ public class Car
 
     public Car(int x, int y) {
         Random rand = new Random();
-        float r = rand.nextFloat() + 0.5f;
-        float g = rand.nextFloat() + 0.5f;
-        float b = rand.nextFloat() + 0.5f;
+        float r = rand.nextFloat() * 0.5f + 0.5f;
+        float g = rand.nextFloat() * 0.5f + 0.5f;
+        float b = rand.nextFloat() * 0.5f + 0.5f;
         this.color = new Color(r, g, b);
         this.x = x;
         this.y = y;

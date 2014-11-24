@@ -1,11 +1,10 @@
 package Server.Responses;
 
-import Model.Car;
-import Model.CarsInfo;
-
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+
+import Model.CarsInfo;
 
 /**
  * Created by ThinkPad on 2014-11-23.
@@ -25,6 +24,11 @@ public class TrafficResponse extends AbstractResponse {
             e.printStackTrace();
         }
     }
+    
+    public CarsInfo getCarsInfo()
+	{
+		return carsInfo;
+	}
 
-    private CarsInfo carsInfo;
+	private CarsInfo carsInfo;
 }
