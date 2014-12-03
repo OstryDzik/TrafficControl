@@ -1,11 +1,15 @@
 package Simulation;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.net.SocketException;
+import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
+
+
 
 
 
@@ -97,7 +101,24 @@ public class SimulationConnection
 	        CarsInfo info = new CarsInfo(cars);
 			SetTrafficRequest request = new SetTrafficRequest(clientSocket, info);
 			request.send();
+			Object okResponse = readFromSocket();
 			// re
 	}
+	
+	
+	private Object readFromSocket() throws IOException, SocketTimeoutException
+    {
+        Object result = null;
+        try
+        {
+            ObjectInputStream ois = new ObjectInputStream(clientSocket.getInputStream());
+            result = ois.readObject();
+        } catch (ClassNotFoundException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return result;
+    }
 	}
 }
