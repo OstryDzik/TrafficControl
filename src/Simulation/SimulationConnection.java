@@ -4,8 +4,13 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+
+
+
+import Model.Car;
 //import Common.Mutex;
 import Model.CarsInfo;
 import Server.Server;
@@ -62,41 +67,35 @@ public class SimulationConnection
 	{
 		public void run()
 		{
-			
-				try 
-				{
-					clientSocket = new Socket(address, Server.DEFAULT_CARS_PORT);
-				} catch (UnknownHostException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+			    
 				try
-				{
-					clientSocket.setSoTimeout(DEFAULT_TIMEOUT);
-				} catch (SocketException e) 
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+                {
+                    clientSocket = new Socket(address, Server.DEFAULT_CARS_PORT);
+                    clientSocket.setSoTimeout(DEFAULT_TIMEOUT);
+                    while (connectionThreadActive.get())
+                    {
+                            setTraffic();
+                            Thread.sleep(250);
+                    }
+                    connectionThreadActive.set(false);
+                } catch (IOException e1)
+                {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                } catch (InterruptedException e)
+                {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
 				
-				while (connectionThreadActive.get())
-				{
-					try {
-						setTraffic();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				connectionThreadActive.set(false);
 		}
 	
 	private void setTraffic() throws IOException
 	{
-			SetTrafficRequest request = new SetTrafficRequest(clientSocket, carsInfo);
+	        ArrayList<Car> cars = new ArrayList<>();
+	        cars.add(new Car(2,2));
+	        CarsInfo info = new CarsInfo(cars);
+			SetTrafficRequest request = new SetTrafficRequest(clientSocket, info);
 			request.send();
 			// re
 	}

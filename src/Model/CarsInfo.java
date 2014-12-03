@@ -1,11 +1,16 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Filip on 2014-11-01.
  */
-public class CarsInfo {
+public class CarsInfo implements Serializable
+{
+    /** */
+    private static final long serialVersionUID = -4234002272974425338L;
+
     public ArrayList<Car> getCars() {
         return cars;
     }

@@ -2,14 +2,17 @@ package Model;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.io.Serializable;
 import java.util.Random;
 
 
 /**
  * Created by Filip on 2014-11-01.
  */
-public class Car
+public class Car implements Serializable
 {
+    /** */
+    private static final long serialVersionUID = -878205146976541058L;
     private int x;
     private int y;
     private final Color color;
