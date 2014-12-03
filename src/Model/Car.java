@@ -11,6 +11,7 @@ public class Car
     private int x;
     private int y;
     private final Color color;
+    private Direction direction;
 
     public Car(int x, int y) {
         Random rand = new Random();
@@ -20,6 +21,7 @@ public class Car
         this.color = new Color(r, g, b);
         this.x = x;
         this.y = y;
+        this.direction = Direction.UP;
     }
     public Car() {
         this(0, 0);
@@ -48,5 +50,15 @@ public class Car
     public void setY(int y)
     {
         this.y = y;
+    }
+    
+    public Direction getDirection()
+    {
+        return direction;
+    }
+    
+    public void setDirection(Direction direction)
+    {
+        this.direction = direction;
     }
 }

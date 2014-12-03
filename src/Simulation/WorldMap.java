@@ -1,0 +1,6 @@
+package Simulation;
+
+class WorldMap
+{
+
+}
