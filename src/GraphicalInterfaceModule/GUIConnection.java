@@ -1,7 +1,6 @@
 package GraphicalInterfaceModule;
 
 import java.io.IOException;
-
 import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.net.SocketException;
@@ -20,6 +19,7 @@ import Server.Requests.GetTrafficRequest;
 import Server.Requests.KillModuleRequest;
 import Server.Requests.NextTickRequest;
 import Server.Responses.LightsResponse;
+import Server.Responses.OkResponse;
 import Server.Responses.TrafficResponse;
 
 /**
@@ -171,7 +171,7 @@ public class GUIConnection
 				AddCarRequest request = new AddCarRequest(clientSocket, car);
 				request.send();
 				Object okResponse = readFromSocket();
-				if (okResponse instanceof LightsResponse)
+				if (okResponse instanceof OkResponse)
 				{
 					InterfaceFrame.writeToConsole("# Odebrano potwierdzenie dodania samochodu");
 				}
@@ -189,7 +189,7 @@ public class GUIConnection
 				KillModuleRequest request = new KillModuleRequest(clientSocket, module);
 				request.send();
 				Object okResponse = readFromSocket();
-				if (okResponse instanceof LightsResponse)
+				if (okResponse instanceof OkResponse)
 				{
 					InterfaceFrame.writeToConsole("# Odebrano potwierdzenie odłączenia modułu");
 				}
@@ -207,7 +207,7 @@ public class GUIConnection
 				NextTickRequest request = new NextTickRequest(clientSocket);
 				request.send();
 				Object response = readFromSocket();
-				if (response instanceof LightsResponse)
+				if (response instanceof OkResponse)
 				{
 					InterfaceFrame.writeToConsole("# Odebrano potwierdzenie symulacji");
 				}
