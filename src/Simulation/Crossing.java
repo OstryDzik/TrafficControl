@@ -92,4 +92,9 @@ public class Crossing
             horizontalTraffic++;
         }
     }
+    
+    void setLightsState(LightsState lightsState)
+    {
+        this.lightsState = lightsState;
+    }
 }

@@ -5,19 +5,66 @@ import java.util.ArrayList;
 
 import Model.Car;
 import Model.Direction;
+import Model.LightsInfo;
 
 class WorldMap
 {
     private final int SIZE = 46;
     private final int NR_CROSSING = 9;
-    private int intensityTable[][] = new int[NR_CROSSING][2];
     private ArrayList<Car> cars;
     private Car carTable[][];
     private Crossing crossingTable[];
     
+    WorldMap()
+    {
+        carTable = new Car[SIZE][SIZE];
+        crossingTable = new Crossing[NR_CROSSING];
+        cars = new ArrayList<Car>();
+        crossingTable[0] = new Crossing(10, 11, 10, 11);
+        crossingTable[1] = new Crossing(22, 23, 10, 11);
+        crossingTable[2] = new Crossing(34, 35, 10, 11);
+        crossingTable[3] = new Crossing(10, 11, 22, 23);
+        crossingTable[4] = new Crossing(22, 23, 22, 23);
+        crossingTable[5] = new Crossing(34, 35, 22, 23);
+        crossingTable[6] = new Crossing(10, 11, 34, 35);
+        crossingTable[7] = new Crossing(22, 23, 34, 35);
+        crossingTable[8] = new Crossing(34, 35, 34, 35);
+        addCar(11, 35);
+    }
+    
+    void addCar(int x, int y)
+    {
+        carTable[x][y] = new Car(x, y);
+        cars.add(carTable[x][y]);
+    }
+    
+    void print()
+    {
+        for (int i = 0; i < 46; i++)
+        {
+            System.out.print(i);
+            for (int j = 0; j < 46; j++)
+            {
+                if(carTable[j][i] != null)
+                    System.out.print("X");
+                else
+                    System.out.print(".");
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+    
+    void setLights(LightsInfo lightsInfo)
+    {
+        for (int i = 0; i < crossingTable.length; i++)
+        {
+            crossingTable[i].setLightsState(lightsInfo.getStates()[i]);
+        }
+    }
+    
         void nextMove()
         {
-            clearIntensity();
             ArrayList<Point> forbiddenList = new ArrayList<Point>();
             for(int i = cars.size() - 1; i >= 0; i--)
             {
@@ -106,14 +153,7 @@ class WorldMap
             }
         }
         
-        private void clearIntensity()
-        {
-            for(int i =0 ; i<intensityTable.length; i++)
-            {
-                intensityTable[i][0] = 0;
-                intensityTable[i][1] = 0;
-            }
-        }
+        
         
         private Point getNextPoint(int x, int y, Direction direction)
         {

@@ -3,11 +3,22 @@ package Simulation;
 import GraphicalInterfaceModule.GUIConnection;
 import GraphicalInterfaceModule.GraphicalInterfaceMain;
 
-public class SimulationRun {
+public class SimulationRun 
+{
 
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	{
 		// TODO Auto-generated method stub
 		SimulationConnection.getInstance().connectToServer(GraphicalInterfaceMain.DEFAULT_IP);
+
+//      To jest do testow		
+//		WorldMap wm = new WorldMap();
+//	    wm.print();
+//	    for (int i = 0; i < 5; i++)
+//        {
+//            wm.nextMove();
+//            wm.print();
+//        }
 	}
 
 }
