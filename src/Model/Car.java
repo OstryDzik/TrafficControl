@@ -3,6 +3,8 @@ package Model;
 import java.awt.Color;
 import java.awt.Point;
 import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Random;
 
 
@@ -17,11 +19,13 @@ public class Car implements Serializable
     private int y;
     private final Color color;
     private Direction direction;
-    private Direction newDirection;
+    private Direction newDirection = null;
     private boolean directionChosen;
     private int countTime;
+    private Queue<Direction> track;
 
-    public Car(int x, int y) {
+    public Car(int x, int y) 
+    {
         Random rand = new Random();
         float r = rand.nextFloat() * 0.5f + 0.5f;
         float g = rand.nextFloat() * 0.5f + 0.5f;
@@ -29,8 +33,10 @@ public class Car implements Serializable
         this.color = new Color(r, g, b);
         this.x = x;
         this.y = y;
-        this.direction = Direction.UP;
         this.directionChosen = false;
+        this.countTime = -1;
+        this.track = new LinkedList<>();
+        generateTrack(x, y);
     }
     public Car() {
         this(0, 0);
@@ -78,8 +84,11 @@ public class Car implements Serializable
     
     public void setNewDirection()
     {
-        this.newDirection = Direction.UP;
-        
+        newDirection = track.poll();
+        if(newDirection == null)
+        {
+            newDirection = direction;
+        }
         //skrety w prawo to juz na pierwszym wezle skrec
         if(direction == Direction.UP && newDirection == Direction.RIGHT)
         {
@@ -132,5 +141,53 @@ public class Car implements Serializable
     public void changeDirection()
     {
         direction = newDirection;
+    }
+    
+    private void generateTrack(int x, int y)
+    {
+        int previousDirection = -120;
+        if(x == 0)
+        {
+            this.direction = Direction.RIGHT;
+            previousDirection = 1;
+        }
+        else if(x == 45)
+        {
+            this.direction = Direction.LEFT;
+            previousDirection = 3;
+        }
+        else if(y == 0)
+        {
+            this.direction = Direction.DOWN;
+            previousDirection = 2;
+        }
+        else if(y == 45)
+        {
+            this.direction = Direction.UP;
+            previousDirection = 0;
+        }
+            
+        Random rand = new Random(System.currentTimeMillis());
+        
+        
+        for (int i = 0; i < 9; i++)
+        {
+            int randomDirection = rand.nextInt(1000) % 4;
+            int change = randomDirection - previousDirection;
+            if(change != 2 && change != -2)
+            {
+                previousDirection = randomDirection;
+                Direction dir = null;
+                switch(randomDirection)
+                {
+                case 0: dir = Direction.UP; break;
+                case 1: dir = Direction.RIGHT; break;
+                case 2: dir = Direction.DOWN; break;
+                case 3: dir = Direction.LEFT; break;
+                }
+                track.offer(dir);
+            }
+            
+        }
     }
 }

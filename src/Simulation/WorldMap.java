@@ -29,7 +29,9 @@ class WorldMap
         crossingTable[6] = new Crossing(10, 11, 34, 35);
         crossingTable[7] = new Crossing(22, 23, 34, 35);
         crossingTable[8] = new Crossing(34, 35, 34, 35);
-        addCar(11, 35);
+        addCar(11, 45);
+        addCar(0, 11);
+        addCar(45, 10);
     }
     
     void addCar(int x, int y)
