@@ -207,7 +207,7 @@ public class GUIConnection
 				NextTickRequest request = new NextTickRequest(clientSocket);
 				request.send();
 				Object response = readFromSocket();
-				if (response instanceof OkResponse)
+				if (response instanceof String && response.equals("OK"))
 				{
 					InterfaceFrame.writeToConsole("# Odebrano potwierdzenie symulacji");
 				}

@@ -6,7 +6,7 @@ import javax.swing.UIManager;
 
 public class GraphicalInterfaceMain
 {
-	public static final String DEFAULT_IP = new String("127.0.0.1");
+	public static final String DEFAULT_IP = new String("0.0.0.0");
 
 	/**
 	 * Launch the application.

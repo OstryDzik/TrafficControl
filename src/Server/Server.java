@@ -71,6 +71,8 @@ public class Server
     }
 
     public void start() {
+
+        simulation = new Simulation();
         carsServerListener = new ServerListener(DEFAULT_CARS_PORT);
         Thread carsThread = new Thread(carsServerListener);
         carsThread.start();
@@ -81,7 +83,7 @@ public class Server
 
 
         guiServerListener = new ServerListener(DEFAULT_GUI_PORT);
-        Thread guiThread = new Thread(lightsServerListener);
+        Thread guiThread = new Thread(guiServerListener);
         guiThread.start();
     }
 

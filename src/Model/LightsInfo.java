@@ -1,9 +1,11 @@
 package Model;
 
+import java.io.Serializable;
+
 /**
  * Created by Filip on 2014-11-01.
  */
-public class LightsInfo {
+public class LightsInfo implements Serializable{
     public enum LightsState {HORIZONTALLY_GREEN, HORIZONTALLY_RED, HORIZONTALLY_ORANGE, VERTICALLY_ORANGE}
 
     public LightsInfo()
