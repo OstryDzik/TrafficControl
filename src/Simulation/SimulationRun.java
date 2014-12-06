@@ -1,6 +1,5 @@
 package Simulation;
 
-import GraphicalInterfaceModule.GUIConnection;
 import GraphicalInterfaceModule.GraphicalInterfaceMain;
 
 public class SimulationRun 

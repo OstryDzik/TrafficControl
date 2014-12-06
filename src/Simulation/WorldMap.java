@@ -14,6 +14,7 @@ class WorldMap
     private ArrayList<Car> cars;
     private Car carTable[][];
     private Crossing crossingTable[];
+    private int intensityTable[][];
     
     WorldMap()
     {
@@ -29,6 +30,8 @@ class WorldMap
         crossingTable[6] = new Crossing(10, 11, 34, 35);
         crossingTable[7] = new Crossing(22, 23, 34, 35);
         crossingTable[8] = new Crossing(34, 35, 34, 35);
+        intensityTable = new int[9][2];
+        
         addCar(11, 45);
         addCar(0, 11);
         addCar(45, 10);
@@ -67,6 +70,7 @@ class WorldMap
     
         void nextMove()
         {
+            clearIntensity();
             ArrayList<Point> forbiddenList = new ArrayList<Point>();
             for(int i = cars.size() - 1; i >= 0; i--)
             {
@@ -91,7 +95,6 @@ class WorldMap
                        {
                            car.setDirectionChosen(true);
                            car.setNewDirection();
-                           tickTraffic(p, car.getDirection());
                        }
                        
                        if(isRedOrOrangeLight(p, car.getDirection()))
@@ -153,9 +156,18 @@ class WorldMap
 //                     System.out.println("zmiana kierunku samochodu");
                    }
             }
+            updateIntensity();
         }
         
+        ArrayList<Car> getCars()
+        {
+            return cars;
+        }
         
+        int[][] getIntensityTable()
+        {
+            return intensityTable;
+        }
         
         private Point getNextPoint(int x, int y, Direction direction)
         {
@@ -357,15 +369,67 @@ class WorldMap
             return true;
         }
         
-        private void tickTraffic(Point p, Direction d)
+        private void calculateCrossing(Point point, Direction direction)
         {
-            for (Crossing crossing : crossingTable)
+            if(isCrossing(point))
+                return;
+            
+            do
             {
-                if (crossing.thisCrossing(p))
+                if(direction == Direction.UP)
                 {
-                    crossing.tickTraffic(d);
+                    point.y--;
+                }
+                else if( direction == Direction.DOWN)
+                {
+                    point.y++;
+                }
+                else if( direction == Direction.LEFT)
+                {
+                    point.x--;
+                }
+                else if( direction == Direction.RIGHT)
+                {
+                    point.x++;
+                }
+            }
+            while( isCrossing(point) == false && isOutOfTable(point) == false );
+            
+            if(isOutOfTable(point))
+            {
+                return;
+            }
+            for (int i = 0; i<crossingTable.length ; i++ )
+            {
+                if(crossingTable[i].thisCrossing(point))
+                {
+                    if(direction == Direction.UP || direction == Direction.DOWN)
+                    {
+                        intensityTable[i][1]++;
+                        break;
+                    }
+                    else
+                    {
+                        intensityTable[i][0]++;
+                    }
                 }
             }
         }
         
+        private void clearIntensity()
+        {
+            for(int i =0 ; i<intensityTable.length; i++)
+            {
+                intensityTable[i][0] = 0;
+                intensityTable[i][1] = 0;
+            }
+        }
+        
+        private void updateIntensity()
+        {
+            for(Car car : cars)
+            {
+                calculateCrossing(new Point(car.getX(),car.getY()),car.getDirection());
+            }
+        }
 }

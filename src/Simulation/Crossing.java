@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import Model.Car;
 import Model.Direction;
-import Model.LightsInfo;
 import Model.LightsInfo.LightsState;
 
 public class Crossing
@@ -13,8 +12,6 @@ public class Crossing
     private ArrayList<Integer> xArray;
     private ArrayList<Integer> yArray;
     private LightsState lightsState;
-    private int verticalTraffic;
-    private int horizontalTraffic;
     
     public Crossing(int x1, int x2, int y1, int y2)
     {
@@ -25,8 +22,6 @@ public class Crossing
         yArray.add(y1);
         yArray.add(y2);
         lightsState = LightsState.HORIZONTALLY_GREEN;
-        verticalTraffic = 0;
-        horizontalTraffic = 0;
     }
     
     boolean thisCrossing(Point p)
@@ -67,7 +62,7 @@ public class Crossing
         }
     }
     
-    public int getCarCount(final  Car table[][])
+    int getCarCount(final  Car table[][])
     {
         int count = 0;
         for(int x : xArray)
@@ -79,18 +74,6 @@ public class Crossing
             }
         }
         return count;
-    }
-    
-    public void tickTraffic(Direction direction)
-    {
-        if(direction == Direction.UP || direction == Direction.DOWN)
-        {
-            verticalTraffic++;
-        }
-        else
-        {
-            horizontalTraffic++;
-        }
     }
     
     void setLightsState(LightsState lightsState)
