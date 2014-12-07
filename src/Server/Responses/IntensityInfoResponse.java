@@ -12,8 +12,8 @@ import java.net.Socket;
 public class IntensityInfoResponse extends AbstractResponse {
     private final IntensityInfo intensityInfo;
 
-    public IntensityInfoResponse(Socket clientSocket, IntensityInfo intensityInfo) {
-        super(clientSocket);
+    public IntensityInfoResponse(IntensityInfo intensityInfo)
+    {
         this.intensityInfo = intensityInfo;
     }
 
@@ -21,14 +21,4 @@ public class IntensityInfoResponse extends AbstractResponse {
         return intensityInfo;
     }
 
-    @Override
-    public void send() {
-        try {
-            ObjectOutputStream writer = new ObjectOutputStream(clientSocket.getOutputStream());
-            writer.writeObject(intensityInfo);
-            writer.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }

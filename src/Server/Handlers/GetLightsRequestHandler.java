@@ -24,8 +24,8 @@ public class GetLightsRequestHandler extends AbstractRequestHandler
         Server server = Server.getInstance();
         server.lockLightsInfo();
         LightsInfo lInfo = server.getLightsInfo();
-        LightsResponse response = new LightsResponse(clientSocket, lInfo);
-        response.send();
+        LightsResponse response = new LightsResponse(lInfo);
+        sendResponse(response);
         server.unlockLightsInfo();
     }
 }

@@ -25,8 +25,7 @@ public class SetTrafficRequestHandler extends AbstractRequestHandler
         Server server = Server.getInstance();
         server.lockCarsInfo();
         server.setCarsInfo(carsInfo);
-        OkResponse okResponse = new OkResponse(clientSocket);
-        okResponse.send();
+        sendResponse(new OkResponse());
         server.unlockCarsInfo();
 
     }

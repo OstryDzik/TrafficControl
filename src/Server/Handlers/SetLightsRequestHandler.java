@@ -23,8 +23,7 @@ public class SetLightsRequestHandler extends AbstractRequestHandler
         Server server = Server.getInstance();
         server.lockLightsInfo();
         server.setLightsInfo(lightsInfo);
-        OkResponse okResponse = new OkResponse(clientSocket);
-        okResponse.send();
+        sendResponse(new OkResponse());
         server.unlockLightsInfo();
     }
 

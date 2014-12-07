@@ -24,8 +24,8 @@ public class GetSimulationStateHandler extends AbstractRequestHandler
         Server server = Server.getInstance();
         server.lockSimulation();
         Simulation sInfo = server.getSimulation();
-        SimulationStateResponse response = new SimulationStateResponse(clientSocket, sInfo);
-        response.send();
+        SimulationStateResponse response = new SimulationStateResponse(sInfo);
+        sendResponse(response);
         server.unlockSimulation();
     }
 }

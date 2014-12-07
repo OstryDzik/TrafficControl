@@ -2,9 +2,11 @@ package Server.Handlers;
 
 import Model.*;
 import Server.Requests.*;
+import Server.Responses.AbstractResponse;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public abstract class AbstractRequestHandler
@@ -68,6 +70,18 @@ public abstract class AbstractRequestHandler
 
         return null;
     }
+
+    protected void sendResponse(AbstractResponse response)
+    {
+        try {
+            ObjectOutputStream writer = new ObjectOutputStream(clientSocket.getOutputStream());
+            writer.writeObject(response);
+            writer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     protected Socket clientSocket;
 }

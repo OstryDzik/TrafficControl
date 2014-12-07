@@ -23,8 +23,8 @@ public class GetTrafficRequestHandler extends AbstractRequestHandler
         Server server = Server.getInstance();
         server.lockCarsInfo();
         CarsInfo cInfo = server.getCarsInfo();
-        TrafficResponse response = new TrafficResponse(clientSocket, cInfo);
-        response.send();
+        TrafficResponse response = new TrafficResponse(cInfo);
+        sendResponse(response);
         server.unlockCarsInfo();
     }
 }

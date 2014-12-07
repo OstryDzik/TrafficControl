@@ -24,8 +24,9 @@ public class NextTickRequestHandler extends AbstractRequestHandler
         Simulation simulation = server.getSimulation();
         simulation.advanceTime();
         server.setSimulation(simulation);
-        OkResponse okResponse = new OkResponse(clientSocket);
-        okResponse.send();
+//        OkResponse okResponse = new OkResponse(clientSocket);
+//        okResponse.send();
+        sendResponse(new OkResponse());
         server.unlockSimulation();
     }
 }
