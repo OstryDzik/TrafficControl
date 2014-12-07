@@ -29,6 +29,7 @@ public class SimulationConnection
 	private Thread connectionThread;
 	private AtomicBoolean connectionThreadActive = new AtomicBoolean(false);
 	private String address;
+	private WorldMap wm = new WorldMap();
 	
 	//private Mutex mutex = new Mutex();
 	
@@ -78,8 +79,10 @@ public class SimulationConnection
                     clientSocket.setSoTimeout(DEFAULT_TIMEOUT);
                     while (connectionThreadActive.get())
                     {
-                            setTraffic();
-                            Thread.sleep(250);
+                              wm.nextMove();
+                              setTraffic();
+                              Thread.sleep(1000);
+                          
                     }
                     connectionThreadActive.set(false);
                 } catch (IOException e1)
@@ -96,9 +99,8 @@ public class SimulationConnection
 	
 	private void setTraffic() throws IOException
 	{
-	        ArrayList<Car> cars = new ArrayList<>();
-	        cars.add(new Car(2,2));
-	        CarsInfo info = new CarsInfo(cars);
+	        
+	        CarsInfo info = new CarsInfo(wm.getCars());
 			SetTrafficRequest request = new SetTrafficRequest(clientSocket, info);
 			request.send();
 			Object okResponse = readFromSocket();
