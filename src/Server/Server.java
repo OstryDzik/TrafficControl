@@ -3,6 +3,7 @@ package Server;
 
 import Common.Mutex;
 import Model.CarsInfo;
+import Model.IntensityInfo;
 import Model.LightsInfo;
 import Model.Simulation;
 import Server.Handlers.AbstractRequestHandler;
@@ -16,6 +17,7 @@ public class Server
     public static final int DEFAULT_CARS_PORT = 8000;
     public static final int DEFAULT_LIGHTS_PORT = 8002;
     public static final int DEFAULT_GUI_PORT = 8003;
+    public static final int DEFAULT_INTENSITY_PORT = 8004;
 
     public class ServerListener implements Runnable {
 
@@ -26,6 +28,7 @@ public class Server
                 carsInfoMutex = new Mutex();
                 lightsInfoMutex = new Mutex();
                 simulationMutex = new Mutex();
+                intensityInfoMutex = new Mutex();
 
             } catch (IOException e) {
                 // TODO Auto-generated catch block
@@ -85,6 +88,10 @@ public class Server
         guiServerListener = new ServerListener(DEFAULT_GUI_PORT);
         Thread guiThread = new Thread(guiServerListener);
         guiThread.start();
+
+        intensityListener = new ServerListener(DEFAULT_INTENSITY_PORT);
+        Thread intensityThread = new Thread(intensityListener);
+        intensityThread.start();
     }
 
     public LightsInfo getLightsInfo() {
@@ -113,6 +120,14 @@ public class Server
         this.lightsInfo = lightsInfo;
     }
 
+    public IntensityInfo getIntensityInfo() {
+        return intensityInfo;
+    }
+
+    public void setIntensityInfo(IntensityInfo intensityInfo) {
+        this.intensityInfo = intensityInfo;
+    }
+
     public void lockCarsInfo() {
         carsInfoMutex.Acquire();
     }
@@ -135,16 +150,23 @@ public class Server
         simulationMutex.Release();
     }
 
+    public void lockIntensityInfo() { intensityInfoMutex.Acquire();}
+    public void unlockIntensityInfo() { intensityInfoMutex.Release();}
+
     private Mutex carsInfoMutex;
     private Mutex lightsInfoMutex;
     private Mutex simulationMutex;
+    private Mutex intensityInfoMutex;
 
     private ServerListener carsServerListener = null;
     private ServerListener lightsServerListener = null;
     private ServerListener guiServerListener = null;
+    private ServerListener intensityListener = null;
 
     private LightsInfo lightsInfo = null;
     private CarsInfo carsInfo = null;
+
+    private IntensityInfo intensityInfo = null;
 
     private Simulation simulation = null;
 

@@ -46,6 +46,8 @@ public abstract class AbstractRequestHandler
                     return new GetSimulationStateHandler(clientSocket);
                 if(readStirng.equals("NEXTTICK"))
                     return new NextTickRequestHandler(clientSocket);
+                if(readStirng.equals("GETINTENSITY"))
+                    return new GetIntensityHandler(clientSocket);
             }
             if (readObject instanceof Car)
                 return new AddCarRequestHandler((Car)readObject, clientSocket);
@@ -57,6 +59,8 @@ public abstract class AbstractRequestHandler
                 return new SetLightsRequestHandler((LightsInfo)readObject, clientSocket);
             if (readObject instanceof Interval)
                 return new SetIntervalRequestHandler((Interval)readObject, clientSocket);
+            if (readObject instanceof IntensityInfo)
+                return new SetIntensityInfoHandler((IntensityInfo)readObject, clientSocket);
         }
         catch (IOException e)
         {
