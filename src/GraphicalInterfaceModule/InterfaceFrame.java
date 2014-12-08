@@ -80,8 +80,6 @@ public class InterfaceFrame extends JFrame
         // Panel kontrolny
         final JPanel controlPanel = new JPanel(new GridLayout(0,1,8,8));
         contentPane.add(controlPanel, BorderLayout.LINE_END);
-        final JButton btnStart = new JButton("Przełącz światła");
-        controlPanel.add(btnStart);
         final JButton btnConnect = new JButton("Połącz");
         controlPanel.add(btnConnect);
         final JButton btnDisconnectSim = new JButton("Odłącz symulację");
@@ -102,14 +100,6 @@ public class InterfaceFrame extends JFrame
             public void actionPerformed(ActionEvent arg0)
             {
                 step.set(true);
-            }
-        });
-
-        btnStart.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent arg0)
-            {
-                //worldPanel.update(TempMockupManager.getInstance().getRandomMockup());
             }
         });
 

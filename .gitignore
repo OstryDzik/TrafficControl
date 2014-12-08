@@ -3,3 +3,6 @@ out
 workspace.xml
 .classpath
 .project
+*.fuse_*
+*~
+out/
