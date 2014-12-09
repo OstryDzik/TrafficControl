@@ -14,11 +14,30 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 
 
+
+
+
+
+
+
+
+
+
 import Model.Car;
 //import Common.Mutex;
 import Model.CarsInfo;
+import Model.IntensityInfo;
+import Model.LightsInfo;
+import Model.Simulation;
+import Model.Simulation.SimulationState;
 import Server.Server;
+import Server.Requests.GetLightsRequest;
+import Server.Requests.GetSimulationStateRequest;
+import Server.Requests.SetIntensityInfoRequest;
 import Server.Requests.SetTrafficRequest;
+import Server.Responses.LightsResponse;
+import Server.Responses.SimulationStateResponse;
+
 
 public class SimulationConnection 
 {
@@ -26,10 +45,13 @@ public class SimulationConnection
 	private static SimulationConnection instance;
 	private Socket clientSocket;
 	private CarsInfo carsInfo;
+	private IntensityInfo intensityInfo;
 	private Thread connectionThread;
 	private AtomicBoolean connectionThreadActive = new AtomicBoolean(false);
 	private String address;
 	private WorldMap wm = new WorldMap();
+	private Simulation actState = new Simulation();
+	private int previousTicks = 0;
 	
 	//private Mutex mutex = new Mutex();
 	
@@ -77,11 +99,30 @@ public class SimulationConnection
                 {
                     clientSocket = new Socket(address, Server.DEFAULT_CARS_PORT);
                     clientSocket.setSoTimeout(DEFAULT_TIMEOUT);
+                    
                     while (connectionThreadActive.get())
                     {
-                              wm.nextMove();
-                              setTraffic();
-                              Thread.sleep(1000);
+                    	getLights();
+                    	getSimulationState();
+                    	if(actState.getSimulationState() == SimulationState.MANUAL)
+                    	{
+                    		if((actState.getTimePassed()-previousTicks)> 0)
+                    		{
+                    			wm.addRandomCars(1, 1);
+                    			wm.nextMove();
+                    			setTraffic();
+                    			setIntensity();
+                    		}
+                    	}
+                    	else
+                    	{
+                    		
+                    		wm.addRandomCars(1, 1);
+                    		wm.nextMove();
+                    		setTraffic();
+                    		setIntensity();
+                    		Thread.sleep(1000);
+                    	}
                           
                     }
                     connectionThreadActive.set(false);
@@ -107,6 +148,41 @@ public class SimulationConnection
 			// re
 	}
 	
+	private void setIntensity() throws IOException
+	{
+		IntensityInfo info = new IntensityInfo(wm.getIntensityTable());
+		SetIntensityInfoRequest request = new SetIntensityInfoRequest(clientSocket, info);
+		request.send();
+		Object okResponse = readFromSocket();
+	}
+	
+	private void getLights() throws IOException
+	{
+		GetLightsRequest request = new GetLightsRequest(clientSocket);
+		request.send();
+		Object response = readFromSocket();
+		if (response instanceof LightsResponse)
+		{
+			wm.setLights(((LightsResponse) response).getLightsInfo());
+		}
+	}
+	
+	private void getSimulationState() throws IOException
+	{
+		GetSimulationStateRequest request = new GetSimulationStateRequest(clientSocket);
+		request.send();
+		Object response = readFromSocket();
+		if (response instanceof SimulationStateResponse)
+		{
+			System.out.println(((SimulationStateResponse) response).getSimulation().getSimulationState());
+			actState = ((SimulationStateResponse) response).getSimulation();
+		}
+	}
+	
+	private void getAddCar() throws IOException
+	{
+		
+	}
 	
 	private Object readFromSocket() throws IOException, SocketTimeoutException
     {

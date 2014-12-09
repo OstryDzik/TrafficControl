@@ -1,11 +1,19 @@
 package Model;
 
+import java.io.Serializable;
+
 /**
  * Created by ThinkPad on 2014-11-23.
  */
-public class Interval {
+public class Interval implements Serializable
+{
 
-    public Interval(int min, int max) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -2954104352966374374L;
+
+	public Interval(int min, int max) {
         this.min = min;
         this.max = max;
     }
