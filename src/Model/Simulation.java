@@ -14,7 +14,7 @@ public class Simulation implements Serializable
 	private static final long serialVersionUID = 3102194398126500125L;
 	public Simulation()
     {
-        simulationState = SimulationState.AUTO;
+        simulationState = SimulationState.MANUAL;
         timePassed = 0;
         interval = new Interval();
     }
