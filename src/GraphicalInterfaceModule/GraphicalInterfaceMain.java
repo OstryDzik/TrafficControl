@@ -19,7 +19,6 @@ public class GraphicalInterfaceMain
 			{
 				try
 				{
-
 					InterfaceFrame frame = new InterfaceFrame();
 					frame.setVisible(true);
 				} catch (Exception e)

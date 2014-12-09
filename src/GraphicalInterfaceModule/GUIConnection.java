@@ -209,7 +209,7 @@ public class GUIConnection
          */
         private void updateAutoState() throws IOException
         {
-            if (auto != InterfaceFrame.simAuto || minInterval != InterfaceFrame.minCarGenInterval || maxInterval != InterfaceFrame.maxCarGenInterval)
+            if (firstRun || auto != InterfaceFrame.simAuto || minInterval != InterfaceFrame.minCarGenInterval || maxInterval != InterfaceFrame.maxCarGenInterval)
             {
                 // odświeżamy tylko jeśli jest zmiana
                 try
@@ -223,6 +223,7 @@ public class GUIConnection
                         auto = InterfaceFrame.simAuto;
                         minInterval = InterfaceFrame.minCarGenInterval;
                         maxInterval = InterfaceFrame.maxCarGenInterval;
+                        firstRun = false;
                     }
                 } catch (SocketTimeoutException exc)
                 {
@@ -313,8 +314,9 @@ public class GUIConnection
             return result;
         }
 
-        private Boolean auto = null;
-        private Integer minInterval = null;
-        private Integer maxInterval = null;
+        private Boolean firstRun = true;
+        private Boolean auto = false;
+        private Integer minInterval = 1;
+        private Integer maxInterval = 1;
     }
 }
