@@ -1,5 +1,7 @@
 package Lights;
 
+import java.util.HashMap;
+
 public class CrossingLights {
 
 	private final static int DEFAULT_TICK_COUNT = 12;
@@ -7,10 +9,12 @@ public class CrossingLights {
     public enum State{
 		GREEN, 	// poziomo zielone
         YELLOW,
+        YELLOW_VERTICAL,
 		RED,	// poziomo czerwone
 	}
 	
 	private State horizontalState=State.GREEN;
+    private static HashMap<State, State> nextStateMap;
 	
 	// Natezenie ruchu
 	private int horizontalTrafficDensity=0;
@@ -23,6 +27,11 @@ public class CrossingLights {
 	
 	public CrossingLights() {
 		super();
+        nextStateMap = new HashMap<>();
+        nextStateMap.put(State.GREEN, State.YELLOW);
+        nextStateMap.put(State.YELLOW, State.RED);
+        nextStateMap.put(State.RED, State.YELLOW_VERTICAL);
+        nextStateMap.put(State.YELLOW_VERTICAL, State.GREEN);
 	}
 	
 	// Interfejs dostepu do stanu swiatel
@@ -52,16 +61,24 @@ public class CrossingLights {
 		//if(unchangedSince>=4)
 		//{
 		
-			// ewentualna interwencja automatu
-			if(horizontalState == State.GREEN){
-				if(verticalTrafficDensity > horizontalTrafficDensity+3){
-					change(); return true;
-				}
-			} else {
-				if(horizontalTrafficDensity > verticalTrafficDensity+3){
-					change(); return true;
-				}
-			}
+        // ewentualna interwencja automatu
+        if(isTemporaryState(horizontalState)){
+            change();
+            return true;
+        }
+        else {
+            if (horizontalState == State.GREEN) {
+                if (verticalTrafficDensity > horizontalTrafficDensity + 3) {
+                    change();
+                    return true;
+                }
+            } else {
+                if (horizontalTrafficDensity > verticalTrafficDensity + 3) {
+                    change();
+                    return true;
+                }
+            }
+        }
 
 		//}
 
@@ -77,11 +94,12 @@ public class CrossingLights {
 	 * Zmienia swiatla na przeciwne
 	 */
 	public void change(){
-		if(horizontalState == State.GREEN){
-			horizontalState = State.RED;
-		} else {
-			horizontalState = State.GREEN;
-		}
+        horizontalState = getNextLightState(horizontalState);
+//		if(horizontalState == State.GREEN){
+//			horizontalState = State.RED;
+//		} else {
+//			horizontalState = State.GREEN;
+//		}
 		unchangedSince = 0;
 	}
 	
@@ -93,7 +111,13 @@ public class CrossingLights {
 	public void reset() {
 		
 	}
-	
-	
-	
+
+    private State getNextLightState(State state){
+        return nextStateMap.get(state);
+    }
+
+    private boolean isTemporaryState(State state){
+        return state == State.YELLOW || state == State.YELLOW_VERTICAL;
+    }
+
 }

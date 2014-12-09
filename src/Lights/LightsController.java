@@ -125,7 +125,25 @@ public class LightsController extends Observable {
 		// Wyslanie nowych swiatel
 		LightsInfo lightsInfo = new LightsInfo();
 		for(int i=0; i<lights.length; i++)
-			lightsInfo.setState(i, (lights[i].getHorizontalState()==State.GREEN) ? LightsState.HORIZONTALLY_GREEN: LightsState.HORIZONTALLY_RED);
+        {
+            LightsState nextState = LightsState.HORIZONTALLY_GREEN;
+            switch(lights[i].getHorizontalState()){
+                case GREEN:
+                    nextState = LightsState.HORIZONTALLY_GREEN;
+                    break;
+                case RED:
+                    nextState = LightsState.HORIZONTALLY_RED;
+                    break;
+                case YELLOW:
+                    nextState = LightsState.HORIZONTALLY_ORANGE;
+                    break;
+                case YELLOW_VERTICAL:
+                    nextState = LightsState.VERTICALLY_ORANGE;
+                    break;
+
+            }
+            lightsInfo.setState(i, nextState);
+        }
 
         return lightsInfo;
 
