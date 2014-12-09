@@ -1,12 +1,18 @@
 package Model;
 
+import java.io.Serializable;
+
 /**
  * Created by Filip on 2014-11-23.
  */
-public class Simulation
+public class Simulation implements Serializable
 {
 
-    public Simulation()
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3102194398126500125L;
+	public Simulation()
     {
         simulationState = SimulationState.AUTO;
         timePassed = 0;
