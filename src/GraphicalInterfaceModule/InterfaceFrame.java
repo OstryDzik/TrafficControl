@@ -32,7 +32,7 @@ public class InterfaceFrame extends JFrame
     private boolean connectedToServer;
     private boolean simConnected;
     private static boolean ctrlConnected;
-    private static boolean simAuto;
+    public static boolean simAuto;
     private int minCarGenInterval;
     private int maxCarGenInterval;
     /** Określa czy można wykonać już kolejny krok symulacji */

@@ -46,13 +46,11 @@ class WorldInfo
 
 	public LightsInfo getLightsMockup()
 	{
-		// TODO Auto-generated method stub
 		return lightsInfo;
 	}
 
 	public CarsInfo getCarsInfo()
 	{
-		// TODO Auto-generated method stub
 		return carsInfo;
 	}
 
