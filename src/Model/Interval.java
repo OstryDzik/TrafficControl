@@ -20,8 +20,8 @@ public class Interval implements Serializable
 
     public Interval()
     {
-        this.min = 10;
-        this.max = 20;
+        this.min = 1;
+        this.max = 1;
     }
 
     private int min;

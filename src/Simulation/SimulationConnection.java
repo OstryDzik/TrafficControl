@@ -104,21 +104,22 @@ public class SimulationConnection
                     {
                     	getLights();
                     	getSimulationState();
+                    	
                     	if(actState.getSimulationState() == SimulationState.MANUAL)
                     	{
                     		if((actState.getTimePassed()-previousTicks)> 0)
                     		{
-                    			wm.addRandomCars(1, 1);
                     			wm.nextMove();
+                    			wm.addRandomCars(actState.getInterval().getMin(),actState.getInterval().getMax());
                     			setTraffic();
                     			setIntensity();
                     		}
+                    		previousTicks=actState.getTimePassed();
                     	}
                     	else
                     	{
-                    		
-                    		wm.addRandomCars(1, 1);
                     		wm.nextMove();
+                    		wm.addRandomCars(actState.getInterval().getMin(),actState.getInterval().getMax());
                     		setTraffic();
                     		setIntensity();
                     		Thread.sleep(1000);
