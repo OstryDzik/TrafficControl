@@ -214,7 +214,7 @@ public class GUIConnection
                 // odświeżamy tylko jeśli jest zmiana
                 try
                 {
-                    SetSimulationModeRequest request = new SetSimulationModeRequest(clientSocket, auto);
+                    SetSimulationModeRequest request = new SetSimulationModeRequest(clientSocket, InterfaceFrame.simAuto);
                     request.send();
                     Object response = readFromSocket();
                     if (response instanceof String && response.equals("OK") || response instanceof OkResponse)
