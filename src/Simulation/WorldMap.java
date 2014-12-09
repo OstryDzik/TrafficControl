@@ -2,6 +2,7 @@ package Simulation;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import Model.Car;
 import Model.Direction;
@@ -15,6 +16,7 @@ class WorldMap
     private Car carTable[][];
     private Crossing crossingTable[];
     private int intensityTable[][];
+    private ArrayList<Point> startPoints;
     
     WorldMap()
     {
@@ -30,17 +32,44 @@ class WorldMap
         crossingTable[6] = new Crossing(10, 11, 34, 35);
         crossingTable[7] = new Crossing(22, 23, 34, 35);
         crossingTable[8] = new Crossing(34, 35, 34, 35);
+        
+        startPoints = new ArrayList<>();
+        startPoints.add(new Point(0,11));
+        startPoints.add(new Point( 0,23 ));
+        startPoints.add(new Point( 0,35 ));
+        startPoints.add(new Point( 45,10 ));
+        startPoints.add(new Point( 45,22 ));
+        startPoints.add(new Point( 45,34 ));
+        startPoints.add(new Point( 10,0 ));
+        startPoints.add(new Point( 22,0 ));
+        startPoints.add(new Point( 34,0 ));
+        startPoints.add(new Point( 11,45 ));
+        startPoints.add(new Point( 23,45 ));
+        startPoints.add(new Point( 35,45 ));
+        
         intensityTable = new int[9][2];
         
-        addCar(11, 45);
-        addCar(0, 11);
-        addCar(45, 10);
+        
+        
     }
     
     void addCar(int x, int y)
     {
         carTable[x][y] = new Car(x, y);
         cars.add(carTable[x][y]);
+    }
+    
+    void addRandomCars(int min, int max)
+    {
+        int howMany = (min + max) / 2;
+        Collections.shuffle(startPoints);
+        
+        for (int i = 0; i < howMany; i++)
+        {
+            Point tmpPoint = startPoints.get(i);
+            if(carTable[tmpPoint.x][tmpPoint.y] == null)
+                addCar(tmpPoint.x, tmpPoint.y);
+        }
     }
     
     void print()
