@@ -1,6 +1,8 @@
 package Model;
 
-public class IntensityInfo
+import java.io.Serializable;
+
+public class IntensityInfo implements Serializable
 {
 
     public enum Direction{

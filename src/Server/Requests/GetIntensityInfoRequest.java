@@ -19,7 +19,7 @@ public class GetIntensityInfoRequest extends AbstractRequest {
         try
         {
             ObjectOutputStream writer = new ObjectOutputStream(clientSocket.getOutputStream());
-            writer.writeObject("GETINTENSITYINFO");
+            writer.writeObject("GETINTENSITY");
             writer.flush();
         } catch (IOException e)
         {

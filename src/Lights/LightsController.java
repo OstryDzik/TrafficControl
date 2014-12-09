@@ -20,7 +20,7 @@ public class LightsController extends Observable {
 
 	// Flaga - czy jest wlasnie prowadzona kontrola
 	// automatyczna, czy tez manualna
-	private Mode mode = Mode.MANUAL;
+	private Mode mode = Mode.AUTOMATIC;
 
 	// Zarzadzane przez kontrolera swiatla
 	private CrossingLights[] lights;
@@ -98,7 +98,7 @@ public class LightsController extends Observable {
 		//System.out.println("GETINTENSITY...");
 
 		if(info==null){
-		//	System.out.println("NULL INTENSITY RECEIVED");
+			System.out.println("NULL INTENSITY RECEIVED");
 		} else {
 
 			//System.out.println(info.toString());

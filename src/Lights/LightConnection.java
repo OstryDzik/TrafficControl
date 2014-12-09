@@ -8,6 +8,7 @@ import Model.LightsInfo;
 import Model.Module;
 import Server.Requests.AddLightsRequest;
 import Server.Requests.GetIntensityInfoRequest;
+import Server.Requests.GetLightsRequest;
 import Server.Responses.IntensityInfoResponse;
 import Server.Server;
 
@@ -113,7 +114,9 @@ public class LightConnection {
                 while (connectionThreadActive.get())
                 {
                     askIntesityInfo();
-                    lightsInfo = lightsController.updateLights(mockIntensityInfo);
+                    System.out.println("Obliczanie nastepnych swiatel");
+                    lightsInfo = lightsController.updateLights(currentIntensityInfo);
+                    addLights(lightsInfo);
                     // symulacja
 //                    if (InterfaceFrame.isSimAuto() || InterfaceFrame.step.get())
 //                    {
@@ -191,6 +194,7 @@ public class LightConnection {
 //                {
 //                    InterfaceFrame.writeToConsole("# Odebrano potwierdzenie dodania samochodu");
 //                }
+                System.out.println("Wyslano informacje o swiatlach do serwera");
             } catch (SocketTimeoutException exc)
             {
                 // TODO przejście modułu w stan domyślny
@@ -266,7 +270,7 @@ public class LightConnection {
                 GetIntensityInfoRequest request = new GetIntensityInfoRequest(clientSocket);
                 request.send();
                 Object response = readFromSocket();
-                if (response instanceof IntensityInfo)
+                if (response instanceof IntensityInfoResponse)
                 {
                     if (((IntensityInfoResponse) response).getIntensityInfo() != null)
                     {
