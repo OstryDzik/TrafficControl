@@ -5,6 +5,7 @@ import java.util.HashMap;
 public class CrossingLights {
 
 	private final static int DEFAULT_TICK_COUNT = 12;
+    private final static int YELLOW_TICKS = 2;
 
     public enum State{
 		GREEN, 	// poziomo zielone
@@ -63,7 +64,7 @@ public class CrossingLights {
 		
         // ewentualna interwencja automatu
         if(isTemporaryState(horizontalState)){
-            change();
+            if(unchangedSince > YELLOW_TICKS)change();
             return true;
         }
         else {
