@@ -28,8 +28,9 @@ public class AddCarRequestHandler extends AbstractRequestHandler
         CarsInfo cInfo = server.getCarsInfo();
         cInfo.addCar(car);
         server.setCarsInfo(cInfo);
-        sendResponse(new OkResponse());
+
         server.unlockCarsInfo();
+        sendResponse(new OkResponse());
     }
 
     private Car car;

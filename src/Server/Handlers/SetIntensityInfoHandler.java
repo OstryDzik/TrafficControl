@@ -25,8 +25,9 @@ public class SetIntensityInfoHandler extends AbstractRequestHandler
         Server server = Server.getInstance();
         server.lockIntensityInfo();
         server.setIntensityInfo(intensityInfo);
-        sendResponse(new OkResponse());
+
         server.unlockIntensityInfo();
+        sendResponse(new OkResponse());
     }
 
     private IntensityInfo intensityInfo;

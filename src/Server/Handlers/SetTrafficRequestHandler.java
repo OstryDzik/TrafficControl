@@ -22,11 +22,15 @@ public class SetTrafficRequestHandler extends AbstractRequestHandler
     @Override
     public void handle()
     {
+
         Server server = Server.getInstance();
-        server.lockCarsInfo();
-        server.setCarsInfo(carsInfo);
+        if(server.getSimulation().isSimulationOn())
+        {
+            server.lockCarsInfo();
+            server.setCarsInfo(carsInfo);
+            server.unlockCarsInfo();
+        }
         sendResponse(new OkResponse());
-        server.unlockCarsInfo();
 
     }
 }

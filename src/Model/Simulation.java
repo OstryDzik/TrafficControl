@@ -17,6 +17,9 @@ public class Simulation implements Serializable
         simulationState = SimulationState.MANUAL;
         timePassed = 0;
         interval = new Interval();
+        isSimulationOn = true;
+        isGuiOn = true;
+        isLightsModuleOn = true;
     }
 
     public void setState(SimulationState newState)

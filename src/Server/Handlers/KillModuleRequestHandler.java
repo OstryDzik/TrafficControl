@@ -48,8 +48,9 @@ public class KillModuleRequestHandler extends AbstractRequestHandler
         }
 
         server.setSimulation(simulation);
-        sendResponse(new OkResponse());
+
         server.unlockSimulation();
+        sendResponse(new OkResponse());
     }
 
     private Module module;

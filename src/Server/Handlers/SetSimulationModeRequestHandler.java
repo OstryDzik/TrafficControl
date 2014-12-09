@@ -32,7 +32,8 @@ public class SetSimulationModeRequestHandler extends AbstractRequestHandler
         Interval interval = new Interval(simulation.getInterval().getMin(), simulation.getInterval().getMax());
         simulation.setInterval(interval);
         server.setSimulation(simulation);
-        sendResponse(new OkResponse());
+
         server.unlockSimulation();
+        sendResponse(new OkResponse());
     }
 }

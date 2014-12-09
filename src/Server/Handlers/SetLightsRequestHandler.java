@@ -20,11 +20,16 @@ public class SetLightsRequestHandler extends AbstractRequestHandler
     @Override
     public void handle()
     {
+
         Server server = Server.getInstance();
-        server.lockLightsInfo();
-        server.setLightsInfo(lightsInfo);
+        if(server.getSimulation().isLightsModuleOn())
+        {
+            server.lockLightsInfo();
+            server.setLightsInfo(lightsInfo);
+            server.unlockLightsInfo();
+        }
+
         sendResponse(new OkResponse());
-        server.unlockLightsInfo();
     }
 
     private LightsInfo lightsInfo;

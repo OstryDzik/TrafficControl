@@ -26,8 +26,9 @@ public class SetIntervalRequestHandler extends AbstractRequestHandler
         Simulation simulation = server.getSimulation();
         simulation.setInterval(interval);
         server.setSimulation(simulation);
-        sendResponse(new OkResponse());
+
         server.unlockSimulation();
+        sendResponse(new OkResponse());
     }
 
     private Interval interval;
