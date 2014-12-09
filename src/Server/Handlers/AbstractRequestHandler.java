@@ -61,6 +61,8 @@ public abstract class AbstractRequestHandler
                 return new SetIntervalRequestHandler((Interval)readObject, clientSocket);
             if (readObject instanceof IntensityInfo)
                 return new SetIntensityInfoHandler((IntensityInfo)readObject, clientSocket);
+            if (readObject instanceof Simulation.SimulationState)
+                return  new SetSimulationModeRequestHandler((Simulation.SimulationState)readObject, clientSocket);
         }
         catch (IOException e)
         {

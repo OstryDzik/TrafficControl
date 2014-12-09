@@ -18,7 +18,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.BadLocationException;
-
 import Model.Module;
 
 public class InterfaceFrame extends JFrame
@@ -28,7 +27,6 @@ public class InterfaceFrame extends JFrame
     private JPanel contentPane;
     private WorldPanel worldPanel;
     private InfoPanel infoPanel;
-
     private boolean connectedToServer;
     private boolean simConnected;
     private static boolean ctrlConnected;
