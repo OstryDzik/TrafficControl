@@ -88,7 +88,7 @@ public class Simulation implements Serializable
 
     public enum SimulationState{MANUAL, AUTO};
 
-    private SimulationState simulationState;
+    private SimulationState simulationState = SimulationState.MANUAL;
     private int timePassed;
     private Interval interval;
 

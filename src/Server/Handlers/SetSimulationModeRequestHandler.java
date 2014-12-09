@@ -1,6 +1,7 @@
 package Server.Handlers;
 
 
+import Model.Interval;
 import Model.Simulation;
 import Server.Responses.OkResponse;
 import Server.Server;
@@ -13,12 +14,12 @@ import java.net.Socket;
 public class SetSimulationModeRequestHandler extends AbstractRequestHandler
 {
 
-    private Simulation.SimulationState state;
+    private Simulation simulation;
 
-    public SetSimulationModeRequestHandler(Simulation.SimulationState state, Socket clientSocket)
+    public SetSimulationModeRequestHandler(Simulation simulation, Socket clientSocket)
     {
         super(clientSocket);
-        this.state = state;
+        this.simulation = simulation;
     }
 
     @Override
@@ -27,7 +28,9 @@ public class SetSimulationModeRequestHandler extends AbstractRequestHandler
         Server server = Server.getInstance();
         server.lockSimulation();
         Simulation simulation = server.getSimulation();
-        simulation.setState(state);
+        simulation.setState(this.simulation.getSimulationState());
+        Interval interval = new Interval(simulation.getInterval().getMin(), simulation.getInterval().getMax());
+        simulation.setInterval(interval);
         server.setSimulation(simulation);
         sendResponse(new OkResponse());
         server.unlockSimulation();
