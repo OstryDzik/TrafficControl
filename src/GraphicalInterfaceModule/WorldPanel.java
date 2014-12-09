@@ -62,6 +62,7 @@ class WorldInfo
 
 public class WorldPanel extends JPanel
 {
+	private static final long serialVersionUID = 1L;
 	private static WorldPanel instance = null;
 	private WorldInfo worldInfo = new WorldInfo();
 

@@ -209,18 +209,20 @@ public class GUIConnection
          */
         private void updateAutoState() throws IOException
         {
-            if (auto != InterfaceFrame.simAuto)
+            if (auto != InterfaceFrame.simAuto || minInterval != InterfaceFrame.minCarGenInterval || maxInterval != InterfaceFrame.maxCarGenInterval)
             {
                 // odświeżamy tylko jeśli jest zmiana
                 try
                 {
-                    SetSimulationModeRequest request = new SetSimulationModeRequest(clientSocket, InterfaceFrame.simAuto);
+                    SetSimulationModeRequest request = new SetSimulationModeRequest(clientSocket, InterfaceFrame.simAuto, InterfaceFrame.minCarGenInterval, InterfaceFrame.maxCarGenInterval);
                     request.send();
                     Object response = readFromSocket();
                     if (response instanceof String && response.equals("OK") || response instanceof OkResponse)
                     {
                         InterfaceFrame.writeToConsole("# Odebrano potwierdzenie zmiany trybu symulacji");
                         auto = InterfaceFrame.simAuto;
+                        minInterval = InterfaceFrame.minCarGenInterval;
+                        maxInterval = InterfaceFrame.maxCarGenInterval;
                     }
                 } catch (SocketTimeoutException exc)
                 {
@@ -311,6 +313,8 @@ public class GUIConnection
             return result;
         }
 
-        private boolean auto = false;
+        private Boolean auto = null;
+        private Integer minInterval = null;
+        private Integer maxInterval = null;
     }
 }
